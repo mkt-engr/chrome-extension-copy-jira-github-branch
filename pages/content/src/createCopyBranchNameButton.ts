@@ -1,10 +1,10 @@
-const isJiraPage = () => {
+const getIsCreateBranchPage = () => {
   return window.location.href.includes('https://github.atlassian.com/github/create-branch');
 };
 
 export const createCopyBranchNameButton = () => {
-  const isJira = isJiraPage();
-  if (!isJira) {
+  const isCreateBranchPage = getIsCreateBranchPage();
+  if (!isCreateBranchPage) {
     return;
   }
 
