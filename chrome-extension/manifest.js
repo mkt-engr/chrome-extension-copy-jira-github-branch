@@ -31,7 +31,7 @@ function withSidePanel(manifest) {
  */
 const manifest = withSidePanel({
   manifest_version: 3,
-  default_locale: 'en',
+  default_locale: 'ja',
   /**
    * if you want to support multiple languages, you can use the following reference
    * https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Internationalization
@@ -51,7 +51,8 @@ const manifest = withSidePanel({
     default_icon: 'icon-34.png',
   },
   chrome_url_overrides: {
-    newtab: 'new-tab/index.html',
+    //タブを開いた時に表示するページを指定
+    // newtab: 'new-tab/index.html',
   },
   icons: {
     128: 'icon-128.png',
