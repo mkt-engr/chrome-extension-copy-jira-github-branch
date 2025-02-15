@@ -5,16 +5,25 @@ const getIsCreateBranchPage = () => {
 export const createCopyBranchNameButton = () => {
   const isCreateBranchPage = getIsCreateBranchPage();
   if (!isCreateBranchPage) {
-    return;
+    // return;
   }
 
-  const searchBranchNameDom = setInterval(() => {
+  a();
+
+  let counter = 1;
+  const searchBranchNameDomIntervalId = setInterval(() => {
+    console.log(counter++);
     const targetElement = document.querySelector(
       'section.gitHubCreateBranch .gitHubCreateBranch__title .gitHubCreateBranch__subHeader b',
     );
+
+    if (counter === 100) {
+      clearInterval(searchBranchNameDomIntervalId);
+    }
+
     if (targetElement && targetElement.textContent?.trim() !== '') {
       console.log('Found target element:', targetElement);
-      clearInterval(searchBranchNameDom);
+      clearInterval(searchBranchNameDomIntervalId);
 
       //targetElementの横にボタンを追加
       const newButton = document.createElement('button');
@@ -34,4 +43,15 @@ export const createCopyBranchNameButton = () => {
       console.log('Target element not found');
     }
   }, 1000);
+};
+
+const a = async () => {
+  const { checkboxState } = await chrome.storage.local.get(['checkboxState']);
+  console.log({ checkboxState });
+
+  if (checkboxState) {
+    console.log('Auto copying is enabled.');
+  } else {
+    console.log('Auto copying is disabled.');
+  }
 };
