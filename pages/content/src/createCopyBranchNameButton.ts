@@ -13,16 +13,16 @@ export const createCopyBranchNameButton = async () => {
 
   const checkboxState = await getCheckboxState();
 
-  const targetElement = document.querySelector(
-    'section.gitHubCreateBranch .gitHubCreateBranch__title .gitHubCreateBranch__subHeader b',
-  );
-
   const searchBranchNameDomIntervalId = setInterval(() => {
     searchLimitCounter--;
     if (searchLimitCounter < 0) {
       clearInterval(searchBranchNameDomIntervalId);
       return;
     }
+
+    const targetElement = document.querySelector(
+      'section.gitHubCreateBranch .gitHubCreateBranch__title .gitHubCreateBranch__subHeader b',
+    );
 
     if (targetElement && targetElement.textContent?.trim() !== '') {
       console.log('Found target element:', targetElement);
