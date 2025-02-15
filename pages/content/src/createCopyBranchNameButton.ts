@@ -51,14 +51,12 @@ export const createCopyBranchNameButton = async () => {
   }, 1000);
 };
 
+/**
+ * ローカルストレージに保存したチェックボックスの状態を取得する。
+ *
+ * @returns チェックボックスの状態
+ */
 const getCheckboxState = async (): Promise<boolean> => {
   const { checkboxState } = await chrome.storage.local.get(['checkboxState']);
-  console.log({ checkboxState });
-
-  if (checkboxState) {
-    console.log('Auto copying is enabled.');
-  } else {
-    console.log('Auto copying is disabled.');
-  }
   return checkboxState;
 };
