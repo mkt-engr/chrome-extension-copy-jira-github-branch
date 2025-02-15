@@ -1,7 +1,7 @@
 import '@src/Popup.css';
 import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared';
 import { exampleThemeStorage } from '@extension/storage';
-import type { ComponentPropsWithoutRef } from 'react';
+import { useCallback, useState, type ComponentPropsWithoutRef } from 'react';
 
 const notificationOptions = {
   type: 'basic',
@@ -18,6 +18,7 @@ const Popup = () => {
     chrome.tabs.create({ url: 'https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite' });
 
   const injectContentScript = async () => {
+    console.log('injectContentScript');
     const [tab] = await chrome.tabs.query({ currentWindow: true, active: true });
 
     if (tab.url!.startsWith('about:') || tab.url!.startsWith('chrome:')) {
@@ -37,6 +38,15 @@ const Popup = () => {
       });
   };
 
+  const [isAutoCopy, setIsAutoCopy] = useState(false);
+
+  const handleCheckboxChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+    setIsAutoCopy(checked);
+    // チェックボックスの状態を保存
+    chrome.storage.local.set({ checkboxState: checked });
+  }, []);
+
   return (
     <div className={`App ${isLight ? 'bg-slate-50' : 'bg-gray-800'}`}>
       <header className={`App-header ${isLight ? 'text-gray-900' : 'text-gray-100'}`}>
@@ -55,6 +65,11 @@ const Popup = () => {
           Click to inject Content Script
         </button>
         <ToggleButton>Toggle theme</ToggleButton>
+
+        <label>
+          <input type="checkbox" checked={isAutoCopy} onClick={handleCheckboxChange} />
+          ブランチを作成した際に自動的にクリップボードにコピーする場合はチェックを入れてください
+        </label>
       </header>
     </div>
   );

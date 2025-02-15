@@ -33,5 +33,5 @@ export const createCopyBranchNameButton = () => {
     } else {
       console.log('Target element not found');
     }
-  }, 2000);
+  }, 1000);
 };

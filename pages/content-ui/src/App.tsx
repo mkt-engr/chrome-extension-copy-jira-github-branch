@@ -7,7 +7,7 @@ export default function App() {
   const theme = useStorage(exampleThemeStorage);
 
   useEffect(() => {
-    console.log('content ui loadeda');
+    console.log('content ui loaded');
   }, []);
 
   return (
