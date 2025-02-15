@@ -29,7 +29,7 @@ export const createCopyBranchNameButton = async () => {
       clearInterval(searchBranchNameDomIntervalId);
 
       if (checkboxState) {
-        //クリップボードにtargetElementのテキストをコピー
+        //クリップボードにブランチ名をコピー
         navigator.clipboard.writeText(targetElement.textContent || '');
         alert(`ブランチ名「${targetElement.textContent}」をコピーしました`);
       }
