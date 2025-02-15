@@ -31,7 +31,7 @@ export const createCopyBranchNameButton = async () => {
       if (checkboxState) {
         //クリップボードにtargetElementのテキストをコピー
         navigator.clipboard.writeText(targetElement.textContent || '');
-        alert(`${targetElement.textContent}をコピーしました`);
+        alert(`ブランチ名「${targetElement.textContent}」をコピーしました`);
       }
 
       //targetElementの横にボタンを追加
@@ -41,7 +41,7 @@ export const createCopyBranchNameButton = async () => {
 
       newButton.addEventListener('click', () => {
         navigator.clipboard.writeText(targetElement.textContent || '');
-        alert(`${targetElement.textContent}をコピーしました`);
+        alert(`ブランチ名「${targetElement.textContent}」をコピーしました`);
       });
 
       // 特定の要素の隣に新しいボタンを挿入
