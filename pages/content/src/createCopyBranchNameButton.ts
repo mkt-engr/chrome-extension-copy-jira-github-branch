@@ -5,22 +5,22 @@ const getIsCreateBranchPage = () => {
 export const createCopyBranchNameButton = async () => {
   const isCreateBranchPage = getIsCreateBranchPage();
   if (!isCreateBranchPage) {
-    // return;
+    return;
   }
 
   const checkboxState = await getCheckboxState();
 
-  let counter = 1;
+  let searchLimitCounter = 100;
   const searchBranchNameDomIntervalId = setInterval(() => {
-    console.log(counter++);
-    const targetElement = document.querySelector(
-      'section.gitHubCreateBranch .gitHubCreateBranch__title .gitHubCreateBranch__subHeader b',
-    );
-
-    if (counter > 100) {
+    searchLimitCounter--;
+    if (searchLimitCounter < 0) {
       clearInterval(searchBranchNameDomIntervalId);
       return;
     }
+
+    const targetElement = document.querySelector(
+      'section.gitHubCreateBranch .gitHubCreateBranch__title .gitHubCreateBranch__subHeader b',
+    );
 
     if (targetElement && targetElement.textContent?.trim() !== '') {
       console.log('Found target element:', targetElement);
@@ -46,9 +46,8 @@ export const createCopyBranchNameButton = async () => {
 
       // 特定の要素の隣に新しいボタンを挿入
       targetElement.insertAdjacentElement('afterend', newButton);
-    } else {
-      console.log('Target element not found');
     }
+    console.log('Target element not found');
   }, 1000);
 };
 
