@@ -2,6 +2,9 @@ const getIsCreateBranchPage = () => {
   return window.location.href.includes('https://github.atlassian.com/github/create-branch');
 };
 
+/**bタグを探す回数 */
+let searchLimitCounter = 100;
+
 export const createCopyBranchNameButton = async () => {
   const isCreateBranchPage = getIsCreateBranchPage();
   if (!isCreateBranchPage) {
@@ -10,17 +13,16 @@ export const createCopyBranchNameButton = async () => {
 
   const checkboxState = await getCheckboxState();
 
-  let searchLimitCounter = 100;
+  const targetElement = document.querySelector(
+    'section.gitHubCreateBranch .gitHubCreateBranch__title .gitHubCreateBranch__subHeader b',
+  );
+
   const searchBranchNameDomIntervalId = setInterval(() => {
     searchLimitCounter--;
     if (searchLimitCounter < 0) {
       clearInterval(searchBranchNameDomIntervalId);
       return;
     }
-
-    const targetElement = document.querySelector(
-      'section.gitHubCreateBranch .gitHubCreateBranch__title .gitHubCreateBranch__subHeader b',
-    );
 
     if (targetElement && targetElement.textContent?.trim() !== '') {
       console.log('Found target element:', targetElement);
@@ -37,9 +39,7 @@ export const createCopyBranchNameButton = async () => {
       newButton.innerText = 'ブランチ名をコピー';
       newButton.style.marginLeft = '10px'; // 隣に配置するための余白
 
-      // 新しいボタンのクリックイベントを追加
       newButton.addEventListener('click', () => {
-        //クリップボードにtargetElementのテキストをコピー
         navigator.clipboard.writeText(targetElement.textContent || '');
         alert(`${targetElement.textContent}をコピーしました`);
       });
