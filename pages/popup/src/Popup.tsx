@@ -2,6 +2,7 @@ import '@src/Popup.css';
 import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared';
 import { exampleThemeStorage } from '@extension/storage';
 import { useCallback, useState, type ComponentPropsWithoutRef } from 'react';
+import { useCheckboxState } from './hooks/useCheckboxState';
 
 const notificationOptions = {
   type: 'basic',
@@ -38,14 +39,15 @@ const Popup = () => {
       });
   };
 
-  const [isAutoCopy, setIsAutoCopy] = useState(false);
+  const { isAutoCopy, handleCheckboxChange } = useCheckboxState();
 
-  const handleCheckboxChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const checked = e.target.checked;
-    setIsAutoCopy(checked);
-    // チェックボックスの状態を保存
-    chrome.storage.local.set({ checkboxState: checked });
-  }, []);
+  // Remove the duplicate handleCheckboxChange function
+  // const handleCheckboxChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const checked = e.target.checked;
+  //   setIsAutoCopy(checked);
+  //   // チェックボックスの状態を保存
+  //   chrome.storage.local.set({ checkboxState: checked });
+  // }, []);
 
   return (
     <div className={`App ${isLight ? 'bg-slate-50' : 'bg-gray-800'}`}>
@@ -67,7 +69,7 @@ const Popup = () => {
         <ToggleButton>Toggle theme</ToggleButton>
 
         <label>
-          <input type="checkbox" checked={isAutoCopy} onClick={handleCheckboxChange} />
+          <input type="checkbox" checked={isAutoCopy} onChange={handleCheckboxChange} />
           ブランチを作成した際に自動的にクリップボードにコピーする場合はチェックを入れてください
         </label>
       </header>
