@@ -14,7 +14,7 @@ export const createCopyBranchNameButton = async () => {
   const searchBranchNameDomIntervalId = setInterval(() => {
     console.log(counter++);
     const targetElement = document.querySelector(
-      'section.gitHubCreateBranch .git`HubCreateBranch__title .gitHubCreateBranch__subHeader b',
+      'section.gitHubCreateBranch .gitHubCreateBranch__title .gitHubCreateBranch__subHeader b',
     );
 
     if (counter > 100) {
