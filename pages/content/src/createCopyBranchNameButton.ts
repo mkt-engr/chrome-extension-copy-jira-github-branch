@@ -58,5 +58,5 @@ export const createCopyBranchNameButton = async () => {
  */
 const getCheckboxState = async (): Promise<boolean> => {
   const { checkboxState } = await chrome.storage.local.get(['checkboxState']);
-  return checkboxState;
+  return checkboxState ?? false;
 };
