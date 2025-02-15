@@ -2,28 +2,35 @@ const getIsCreateBranchPage = () => {
   return window.location.href.includes('https://github.atlassian.com/github/create-branch');
 };
 
-export const createCopyBranchNameButton = () => {
+export const createCopyBranchNameButton = async () => {
   const isCreateBranchPage = getIsCreateBranchPage();
   if (!isCreateBranchPage) {
     // return;
   }
 
-  a();
+  const checkboxState = await getCheckboxState();
 
   let counter = 1;
   const searchBranchNameDomIntervalId = setInterval(() => {
     console.log(counter++);
     const targetElement = document.querySelector(
-      'section.gitHubCreateBranch .gitHubCreateBranch__title .gitHubCreateBranch__subHeader b',
+      'section.gitHubCreateBranch .git`HubCreateBranch__title .gitHubCreateBranch__subHeader b',
     );
 
-    if (counter === 100) {
+    if (counter > 100) {
       clearInterval(searchBranchNameDomIntervalId);
+      return;
     }
 
     if (targetElement && targetElement.textContent?.trim() !== '') {
       console.log('Found target element:', targetElement);
       clearInterval(searchBranchNameDomIntervalId);
+
+      if (checkboxState) {
+        //クリップボードにtargetElementのテキストをコピー
+        navigator.clipboard.writeText(targetElement.textContent || '');
+        alert(`${targetElement.textContent}をコピーしました`);
+      }
 
       //targetElementの横にボタンを追加
       const newButton = document.createElement('button');
@@ -45,7 +52,7 @@ export const createCopyBranchNameButton = () => {
   }, 1000);
 };
 
-const a = async () => {
+const getCheckboxState = async (): Promise<boolean> => {
   const { checkboxState } = await chrome.storage.local.get(['checkboxState']);
   console.log({ checkboxState });
 
@@ -54,4 +61,5 @@ const a = async () => {
   } else {
     console.log('Auto copying is disabled.');
   }
+  return checkboxState;
 };
