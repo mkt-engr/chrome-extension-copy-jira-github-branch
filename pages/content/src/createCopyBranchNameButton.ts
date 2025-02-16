@@ -1,5 +1,30 @@
+/**
+ * ブランチ作成ページかどうかを判定する。
+ *
+ * @returns ブランチ作成ページかどうか
+ */
 const getIsCreateBranchPage = () => {
   return window.location.href.includes('https://github.atlassian.com/github/create-branch');
+};
+
+/**
+ * ローカルストレージに保存したチェックボックスの状態を取得する。
+ *
+ * @returns チェックボックスの状態
+ */
+const getCheckboxState = async (): Promise<boolean> => {
+  const { checkboxState } = await chrome.storage.local.get(['checkboxState']);
+  return checkboxState ?? false;
+};
+
+/**
+ * クリップボードにgit switch ${branchName} コマンドをコピー
+ *
+ * @param branchName ブランチ名
+ */
+const copyGitSwitchCommand = (branchName: string) => {
+  navigator.clipboard.writeText(`git fetch && git switch ${branchName}`);
+  alert(`ブランチ名「${branchName}」をコピーしました`);
 };
 
 /**bタグを探す回数 */
@@ -29,9 +54,7 @@ export const createCopyBranchNameButton = async () => {
       clearInterval(searchBranchNameDomIntervalId);
 
       if (checkboxState) {
-        //クリップボードにブランチ名をコピー
-        navigator.clipboard.writeText(targetElement.textContent || '');
-        alert(`ブランチ名「${targetElement.textContent}」をコピーしました`);
+        copyGitSwitchCommand(targetElement.textContent || '');
       }
 
       //targetElementの横にボタンを追加
@@ -40,8 +63,7 @@ export const createCopyBranchNameButton = async () => {
       newButton.style.marginLeft = '10px'; // 隣に配置するための余白
 
       newButton.addEventListener('click', () => {
-        navigator.clipboard.writeText(targetElement.textContent || '');
-        alert(`ブランチ名「${targetElement.textContent}」をコピーしました`);
+        copyGitSwitchCommand(targetElement.textContent || '');
       });
 
       // 特定の要素の隣に新しいボタンを挿入
@@ -49,14 +71,4 @@ export const createCopyBranchNameButton = async () => {
     }
     console.log('Target element not found');
   }, 1000);
-};
-
-/**
- * ローカルストレージに保存したチェックボックスの状態を取得する。
- *
- * @returns チェックボックスの状態
- */
-const getCheckboxState = async (): Promise<boolean> => {
-  const { checkboxState } = await chrome.storage.local.get(['checkboxState']);
-  return checkboxState ?? false;
 };
