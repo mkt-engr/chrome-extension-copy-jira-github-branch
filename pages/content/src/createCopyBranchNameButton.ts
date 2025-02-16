@@ -33,7 +33,7 @@ let searchLimitCounter = 100;
 export const createCopyBranchNameButton = async () => {
   const isCreateBranchPage = getIsCreateBranchPage();
   if (!isCreateBranchPage) {
-    return;
+    // return;
   }
 
   const checkboxState = await getCheckboxState();
