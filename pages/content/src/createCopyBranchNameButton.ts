@@ -1,13 +1,4 @@
 /**
- * ブランチ作成ページかどうかを判定する。
- *
- * @returns ブランチ作成ページかどうか
- */
-const getIsCreateBranchPage = () => {
-  return window.location.href.includes('https://github.atlassian.com/github/create-branch');
-};
-
-/**
  * ローカルストレージに保存したチェックボックスの状態を取得する。
  *
  * @returns チェックボックスの状態
@@ -31,11 +22,6 @@ const copyGitSwitchCommand = (branchName: string) => {
 let searchLimitCounter = 100;
 
 export const createCopyBranchNameButton = async () => {
-  const isCreateBranchPage = getIsCreateBranchPage();
-  if (!isCreateBranchPage) {
-    // return;
-  }
-
   const checkboxState = await getCheckboxState();
 
   const searchBranchNameDomIntervalId = setInterval(() => {

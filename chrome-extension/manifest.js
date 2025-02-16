@@ -60,15 +60,15 @@ const manifest = withSidePanel({
   content_scripts: [
     {
       // matches: ['http://*/*', 'https://*/*', '<all_urls>'],
-      matches: ['https://github.atlassian.com/github/create-branch'],
+      matches: ['https://github.atlassian.com/github/create-branch*'],
       js: ['content/index.iife.js'],
     },
     {
-      matches: ['https://github.atlassian.com/github/create-branch'],
+      matches: ['https://github.atlassian.com/github/create-branch*'],
       js: ['content-ui/index.iife.js'],
     },
     {
-      matches: ['https://github.atlassian.com/github/create-branch'],
+      matches: ['https://github.atlassian.com/github/create-branch*'],
       css: ['content.css'], // public folder
     },
   ],
