@@ -50,6 +50,10 @@ export const createCopyBranchNameButton = async () => {
 
       newButton.addEventListener('click', () => {
         copyGitSwitchCommand(targetElement.textContent || '');
+        targetElement.textContent = 'コピーしました';
+        setTimeout(() => {
+          targetElement.textContent = 'ブランチ名をコピーしました。';
+        }, 300);
       });
 
       // 特定の要素の隣に新しいボタンを挿入
