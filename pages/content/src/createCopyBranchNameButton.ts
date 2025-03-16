@@ -53,7 +53,7 @@ export const createCopyBranchNameButton = async () => {
         newButton.textContent = 'コピーしました';
         setTimeout(() => {
           newButton.textContent = 'ブランチ名をコピー';
-        }, 300);
+        }, 3000);
       });
 
       // 特定の要素の隣に新しいボタンを挿入
