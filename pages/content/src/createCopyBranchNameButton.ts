@@ -49,10 +49,9 @@ export const createCopyBranchNameButton = async () => {
       newButton.style.marginLeft = '10px'; // 隣に配置するための余白
 
       newButton.addEventListener('click', () => {
-        copyGitSwitchCommand(targetElement.textContent || '');
-        targetElement.textContent = 'コピーしました';
+        newButton.textContent = 'コピーしました';
         setTimeout(() => {
-          targetElement.textContent = 'ブランチ名をコピーしました。';
+          newButton.textContent = 'ブランチ名をコピー';
         }, 300);
       });
 
