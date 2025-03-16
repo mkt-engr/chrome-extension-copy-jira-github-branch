@@ -15,7 +15,6 @@ const getCheckboxState = async (): Promise<boolean> => {
  */
 const copyGitSwitchCommand = (branchName: string) => {
   navigator.clipboard.writeText(`git fetch && git switch ${branchName}`);
-  alert(`ブランチ名「${branchName}」をコピーしました`);
 };
 
 /**bタグを探す回数 */
@@ -41,6 +40,7 @@ export const createCopyBranchNameButton = async () => {
 
       if (checkboxState) {
         copyGitSwitchCommand(targetElement.textContent || '');
+        alert(`ブランチ名「${targetElement.textContent}」をコピーしました`);
       }
 
       //targetElementの横にボタンを追加
@@ -49,6 +49,7 @@ export const createCopyBranchNameButton = async () => {
       newButton.style.marginLeft = '10px'; // 隣に配置するための余白
 
       newButton.addEventListener('click', () => {
+        copyGitSwitchCommand(targetElement.textContent || '');
         newButton.textContent = 'コピーしました';
         setTimeout(() => {
           newButton.textContent = 'ブランチ名をコピー';
